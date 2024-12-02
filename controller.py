@@ -1,7 +1,7 @@
 import time
 import sqlite3 as sql
 
-def crearteDB():
+def createDB():
     conn = sql.connect("autoconocimiento.db")
     print("base de datos autoconocimiento creada")
     conn.commit()
@@ -23,9 +23,24 @@ def createTable():
     """)
 
     print("tabla creada")
+
+
+    coon.commit()
+    coon.close()
+
+def insertRow(id_experiencia, tipo_experiencia, experiencia, porcentaje, notas):
+    coon = sql.connect("autoconocimiento.db")
+    cursor = coon.cursor()
+    instruccion =  """
+    INSERT INTO progress_tracking 
+    (experience_id, experience_type, milestone, completion_percentage, notes) 
+    VALUES (?, ?, ?, ?, ?)
+    """
+    cursor.execute(instruccion, (id_experiencia, tipo_experiencia, experiencia, porcentaje, notas))
     coon.commit()
     coon.close()
 
 if __name__ == "__main__":
-    crearteDB()
-    createTable()
+    #createDB()
+    #createTable()
+   insertRow(123,"growth", "buena app", 50, "bien")
