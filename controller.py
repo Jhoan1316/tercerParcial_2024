@@ -49,7 +49,22 @@ def readRows():
     coon.commit()
     coon.close()
     print(datos)
-
+def insertRows(progress_trackingList):
+    coon = sql.connect("autoconocimiento.db")
+    cursor = coon.cursor()
+    instruccion = """
+    INSERT INTO progress_tracking (experience_id, experience_type, milestone, completion_percentage, notes)
+    VALUES (?, ?, ?, ?, ?)
+    """
+    for row in progress_trackingList:
+        try:
+            cursor.execute(instruccion, row)  # Ejecutar el INSERT para cada fila
+        except Exception as e:
+            print(f"Error al insertar la fila {row}: {e}")
+    
+    coon.commit()
+    coon.close()
+    
 def Buscar():
     coon = sql.connect("autoconocimiento.db")
     cursor = coon.cursor()
@@ -63,6 +78,13 @@ def Buscar():
 if __name__ == "__main__":
     #createDB()
     #createTable()
-    #"insertRow(1234,"growth", "buena app", 50, "bien")
+    #insertRow(1234,"growth", "buena app", 50, "bien")
     #readRows()
-    Buscar()
+    #Buscar()
+    # progress_tracking = [
+    #     (987,'contribution', 'mala app',30,'mal'),
+    #     (567,'contribution', 'exelente app',90,'bien'),
+    #     (678,'contribution', 'buenisima app',30,'buenisisma')
+    # ]
+    # insertRows(progress_tracking)
+    pass
