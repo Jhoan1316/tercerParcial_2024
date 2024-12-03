@@ -40,7 +40,29 @@ def insertRow(id_experiencia, tipo_experiencia, experiencia, porcentaje, notas):
     coon.commit()
     coon.close()
 
+def readRows():
+    coon = sql.connect("autoconocimiento.db")
+    cursor = coon.cursor()
+    instruccion =  f"SELECT * FROM progress_tracking"
+    cursor.execute(instruccion)
+    datos = cursor.fetchall()
+    coon.commit()
+    coon.close()
+    print(datos)
+
+def Buscar():
+    coon = sql.connect("autoconocimiento.db")
+    cursor = coon.cursor()
+    instruccion =  f"SELECT * FROM progress_tracking WHERE experience_id = 1234"
+    cursor.execute(instruccion)
+    datos = cursor.fetchall()
+    coon.commit()
+    coon.close()
+    print(datos)
+
 if __name__ == "__main__":
     #createDB()
     #createTable()
-   insertRow(123,"growth", "buena app", 50, "bien")
+    #"insertRow(1234,"growth", "buena app", 50, "bien")
+    #readRows()
+    Buscar()
